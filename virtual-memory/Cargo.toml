@@ -1,0 +1,10 @@
+[package]
+name = "virtual-memory"
+version = "0.1.0"
+edition = "2021"
+
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[target.'cfg(windows)'.dependencies]
+windows-sys = { version = "0.42.0", features = ["Win32_Foundation", "Win32_System_Memory"] }
