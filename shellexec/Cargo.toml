@@ -12,4 +12,4 @@ categories = ["command-line-utilities", "memory-management"]
 
 [dependencies]
 argh = "0.1.9"
-virtual-memory = { path = "../virtual-memory" }
+virtual-memory = { version = "0.1.0", path = "../virtual-memory" }
