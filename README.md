@@ -1,6 +1,7 @@
 ### shellexec
 
 [![Build Status](https://github.com/StackOverflowExcept1on/shellexec/workflows/CI/badge.svg)](https://github.com/StackOverflowExcept1on/shellexec/actions)
+[![Latest Version](https://img.shields.io/crates/v/shellexec.svg)](https://crates.io/crates/shellexec)
 
 Cross-platform shellcode executor in rwx memory
 
@@ -31,6 +32,12 @@ This helper crates allocates rwx memory using the system functions that is descr
 
 Then the contents of the file are copied into this memory,
 the address of this memory is converted into a function and called
+
+### Installing from [crates.io](https://crates.io/crates/shellexec)
+
+```
+cargo install shellexec
+```
 
 ### Building
 
