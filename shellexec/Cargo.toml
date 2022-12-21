@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["StackOverflowExcept1on"]
 edition = "2021"
 description = "Cross-platform shellcode executor in rwx memory"
+readme = "../README.md"
 repository = "https://github.com/StackOverflowExcept1on/shellexec"
 license = "MIT"
 keywords = ["shellcode", "shellcode-loader"]
