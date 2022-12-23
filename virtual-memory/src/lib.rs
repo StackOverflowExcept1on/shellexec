@@ -1,20 +1,26 @@
+//! Library for allocating RWX memory on Unix and Windows
+
 #![no_std]
 
 use core::ops::{Deref, DerefMut};
 
+/// Custom `Result` type that is used by this crate
 pub type Result<T, E = Error> = core::result::Result<T, E>;
 
+/// Describes possible errors, currently it's only memory allocation error
 #[derive(Debug)]
 pub enum Error {
     Allocation,
 }
 
+/// Wraps OS-specific functionality related to allocation RWX memory
 pub struct VirtualMemory {
     ptr: *mut core::ffi::c_void,
     len: usize,
 }
 
 impl VirtualMemory {
+    /// Trying to allocate RWX memory
     pub fn new(len: usize) -> Result<Self> {
         #[cfg(unix)]
         {
@@ -59,22 +65,26 @@ impl VirtualMemory {
         }
     }
 
+    /// Returns pointer to this memory
     #[inline]
     pub fn ptr(&self) -> *const u8 {
         self.ptr as *const u8
     }
 
+    /// Returns mutable pointer to this memory
     #[inline]
     pub fn mut_ptr(&mut self) -> *mut u8 {
         self.ptr as *mut u8
     }
 
+    /// Returns length of allocated memory
     #[inline]
     pub fn len(&self) -> usize {
         self.len
     }
 }
 
+/// Allows to pass `VirtualMemory` as `&[u8]`
 impl Deref for VirtualMemory {
     type Target = [u8];
 
@@ -84,6 +94,7 @@ impl Deref for VirtualMemory {
     }
 }
 
+/// Allows to pass `VirtualMemory` as `&mut [u8]`
 impl DerefMut for VirtualMemory {
     #[inline]
     fn deref_mut(&mut self) -> &mut Self::Target {
@@ -91,6 +102,7 @@ impl DerefMut for VirtualMemory {
     }
 }
 
+/// Acts as destructor (OS-specific)
 impl Drop for VirtualMemory {
     fn drop(&mut self) {
         #[cfg(unix)]
