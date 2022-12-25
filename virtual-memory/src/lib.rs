@@ -1,4 +1,21 @@
 //! Library for allocating RWX memory on Unix and Windows
+//!
+//! ```
+//! use virtual_memory::*;
+//!
+//! let buf = &[
+//!     //mov eax, 1337
+//!     0xb8, 0x39, 0x05, 0x00, 0x00,
+//!     //ret
+//!     0xc3,
+//! ];
+//!
+//! let mut memory = VirtualMemory::new(buf.len()).expect("failed to allocate rwx memory");
+//! memory.copy_from_slice(buf);
+//!
+//! let f: extern "C" fn() -> u32 = unsafe { std::mem::transmute(memory.as_ptr()) };
+//! assert_eq!(f(), 1337);
+//! ```
 
 #![no_std]
 
@@ -79,6 +96,7 @@ impl VirtualMemory {
 
     /// Returns length of allocated memory
     #[inline]
+    #[allow(clippy::len_without_is_empty)]
     pub fn len(&self) -> usize {
         self.len
     }
@@ -90,7 +108,7 @@ impl Deref for VirtualMemory {
 
     #[inline]
     fn deref(&self) -> &Self::Target {
-        unsafe { core::slice::from_raw_parts(self.ptr(), self.len()) }
+        unsafe { core::slice::from_raw_parts(self.ptr as _, self.len) }
     }
 }
 
@@ -98,7 +116,7 @@ impl Deref for VirtualMemory {
 impl DerefMut for VirtualMemory {
     #[inline]
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { core::slice::from_raw_parts_mut(self.mut_ptr(), self.len()) }
+        unsafe { core::slice::from_raw_parts_mut(self.ptr as _, self.len) }
     }
 }
 

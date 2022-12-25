@@ -1,6 +1,6 @@
 [package]
 name = "shellexec"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["StackOverflowExcept1on"]
 edition = "2021"
 description = "Cross-platform shellcode executor in rwx memory"
@@ -12,4 +12,4 @@ categories = ["command-line-utilities", "memory-management"]
 
 [dependencies]
 argh = "0.1.9"
-virtual-memory = { version = "0.1.0", path = "../virtual-memory" }
+virtual-memory = { version = "0.1.1", path = "../virtual-memory" }
