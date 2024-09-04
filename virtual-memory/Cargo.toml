@@ -1,6 +1,6 @@
 [package]
 name = "virtual-memory"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["StackOverflowExcept1on"]
 edition = "2021"
 description = "Library for allocating RWX memory on Unix and Windows"
@@ -13,4 +13,4 @@ categories = ["memory-management", "api-bindings", "no-std"]
 libc = "0.2"
 
 [target.'cfg(windows)'.dependencies]
-windows-sys = { version = "0.42.0", features = ["Win32_Foundation", "Win32_System_Memory"] }
+windows-sys = { version = "0.59", features = ["Win32_Foundation", "Win32_System_Memory"] }

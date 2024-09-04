@@ -19,10 +19,16 @@
 
 #![no_std]
 
-use core::ops::{Deref, DerefMut};
+use core::{
+    error,
+    ffi::c_void,
+    fmt,
+    ops::{Deref, DerefMut},
+    ptr, result, slice,
+};
 
 /// Custom `Result` type that is used by this crate
-pub type Result<T, E = Error> = core::result::Result<T, E>;
+pub type Result<T, E = Error> = result::Result<T, E>;
 
 /// Describes possible errors, currently it's only memory allocation error
 #[derive(Debug)]
@@ -30,9 +36,19 @@ pub enum Error {
     Allocation,
 }
 
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Error::Allocation => write!(f, "memory allocation error"),
+        }
+    }
+}
+
+impl error::Error for Error {}
+
 /// Wraps OS-specific functionality related to allocation RWX memory
 pub struct VirtualMemory {
-    ptr: *mut core::ffi::c_void,
+    ptr: *mut c_void,
     len: usize,
 }
 
@@ -43,7 +59,7 @@ impl VirtualMemory {
         {
             let ptr = unsafe {
                 libc::mmap(
-                    core::ptr::null_mut(),
+                    ptr::null_mut(),
                     len,
                     libc::PROT_READ | libc::PROT_WRITE | libc::PROT_EXEC,
                     libc::MAP_PRIVATE | libc::MAP_ANON,
@@ -67,7 +83,7 @@ impl VirtualMemory {
 
             let ptr = unsafe {
                 VirtualAlloc(
-                    core::ptr::null(),
+                    ptr::null(),
                     len,
                     MEM_COMMIT | MEM_RESERVE,
                     PAGE_EXECUTE_READWRITE,
@@ -108,7 +124,7 @@ impl Deref for VirtualMemory {
 
     #[inline]
     fn deref(&self) -> &Self::Target {
-        unsafe { core::slice::from_raw_parts(self.ptr as _, self.len) }
+        unsafe { slice::from_raw_parts(self.ptr as _, self.len) }
     }
 }
 
@@ -116,7 +132,7 @@ impl Deref for VirtualMemory {
 impl DerefMut for VirtualMemory {
     #[inline]
     fn deref_mut(&mut self) -> &mut Self::Target {
-        unsafe { core::slice::from_raw_parts_mut(self.ptr as _, self.len) }
+        unsafe { slice::from_raw_parts_mut(self.ptr as _, self.len) }
     }
 }
 
