@@ -1,6 +1,6 @@
 [package]
 name = "virtual-memory"
-version = "0.1.2"
+version = "0.1.3"
 authors = ["StackOverflowExcept1on"]
 edition = "2021"
 description = "Library for allocating RWX memory on Unix and Windows"
