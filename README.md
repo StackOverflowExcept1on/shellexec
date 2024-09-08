@@ -19,7 +19,7 @@ Options:
 
 ### Implementation
 
-[virtual-memory](virtual-memory/src/lib.rs) is used to execute shellcode.
+[virtual-memory](https://github.com/StackOverflowExcept1on/shellexec/blob/master/virtual-memory/src/lib.rs) is used to execute shellcode.
 This helper crates allocates rwx memory using the system functions that is described here:
 
 - Unix
