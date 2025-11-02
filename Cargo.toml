@@ -6,8 +6,16 @@ members = [
 ]
 
 [workspace.package]
-version = "0.1.4"
+version = "0.1.5"
 authors = ["StackOverflowExcept1on"]
 edition = "2024"
 repository = "https://github.com/StackOverflowExcept1on/shellexec"
 license = "MIT"
+
+[workspace.dependencies]
+anyhow = "1.0"
+argh = "0.1"
+libc = "0.2"
+windows-sys = { version = "0.61", features = ["Win32_Foundation", "Win32_System_Memory"] }
+
+virtual-memory = { version = "0.1.5", path = "virtual-memory" }

@@ -11,6 +11,6 @@ keywords = ["shellcode", "shellcode-loader"]
 categories = ["command-line-utilities", "memory-management"]
 
 [dependencies]
-anyhow = "1.0"
-argh = "0.1"
-virtual-memory = { version = "0.1.4", path = "../virtual-memory" }
+anyhow.workspace = true
+argh.workspace = true
+virtual-memory.workspace = true
