@@ -1,6 +1,13 @@
 [workspace]
-resolver = "2"
+resolver = "3"
 members = [
     "shellexec",
     "virtual-memory",
 ]
+
+[workspace.package]
+version = "0.1.4"
+authors = ["StackOverflowExcept1on"]
+edition = "2024"
+repository = "https://github.com/StackOverflowExcept1on/shellexec"
+license = "MIT"

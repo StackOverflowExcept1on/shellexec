@@ -78,7 +78,7 @@ impl VirtualMemory {
         #[cfg(windows)]
         {
             use windows_sys::Win32::System::Memory::{
-                VirtualAlloc, MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE,
+                MEM_COMMIT, MEM_RESERVE, PAGE_EXECUTE_READWRITE, VirtualAlloc,
             };
 
             let ptr = unsafe {
@@ -146,7 +146,7 @@ impl Drop for VirtualMemory {
 
         #[cfg(windows)]
         unsafe {
-            use windows_sys::Win32::System::Memory::{VirtualFree, MEM_RELEASE};
+            use windows_sys::Win32::System::Memory::{MEM_RELEASE, VirtualFree};
 
             VirtualFree(self.ptr, 0, MEM_RELEASE);
         }

@@ -1,16 +1,16 @@
 [package]
 name = "shellexec"
-version = "0.1.3"
-authors = ["StackOverflowExcept1on"]
-edition = "2021"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
 description = "Cross-platform shellcode executor in rwx memory"
 readme = "../README.md"
-repository = "https://github.com/StackOverflowExcept1on/shellexec"
-license = "MIT"
+repository.workspace = true
+license.workspace = true
 keywords = ["shellcode", "shellcode-loader"]
 categories = ["command-line-utilities", "memory-management"]
 
 [dependencies]
 anyhow = "1.0"
 argh = "0.1"
-virtual-memory = { version = "0.1.2", path = "../virtual-memory" }
+virtual-memory = { version = "0.1.4", path = "../virtual-memory" }
